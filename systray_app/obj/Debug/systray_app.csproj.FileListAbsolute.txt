@@ -7,3 +7,12 @@ D:\GitServer\Csharp\systray_app\systray_app\bin\Debug\systray_app.pdb
 D:\GitServer\Csharp\systray_app\systray_app\obj\Debug\systray_app.exe
 D:\GitServer\Csharp\systray_app\systray_app\obj\Debug\systray_app.pdb
 D:\GitServer\Csharp\systray_app\systray_app\obj\Debug\systray_app.SliderForm.resources
+D:\GIT\SystrayLampServer\systray_app\bin\Debug\systray_app.exe.config
+D:\GIT\SystrayLampServer\systray_app\obj\Debug\systray_app.exe
+D:\GIT\SystrayLampServer\systray_app\obj\Debug\systray_app.pdb
+D:\GIT\SystrayLampServer\systray_app\bin\Debug\systray_app.exe
+D:\GIT\SystrayLampServer\systray_app\bin\Debug\systray_app.pdb
+D:\GIT\SystrayLampServer\systray_app\obj\Debug\systray_app.csprojResolveAssemblyReference.cache
+D:\GIT\SystrayLampServer\systray_app\obj\Debug\systray_app.Properties.Resources.resources
+D:\GIT\SystrayLampServer\systray_app\obj\Debug\systray_app.SliderForm.resources
+D:\GIT\SystrayLampServer\systray_app\obj\Debug\systray_app.csproj.GenerateResource.Cache

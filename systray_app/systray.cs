@@ -16,23 +16,21 @@ namespace systray_app
         {
             sliderForm = new SliderForm();
             sliderForm.Visible = false;
-            MenuItem configMenuItem = new MenuItem("Configuration", new EventHandler(ShowConfig));
+            //MenuItem configMenuItem = new MenuItem("Configuration", new EventHandler(ShowConfig));
             MenuItem exitMenuItem = new MenuItem("Exit", new EventHandler(Exit));
 
             notifyIcon = new NotifyIcon();
-            notifyIcon.Icon = new Icon(SystemIcons.Application, 80, 80);
+            notifyIcon.Icon = new Icon(SystemIcons.Application, 80, 80);//(SystemIcons.Application, 80, 80); voor icoontje
             notifyIcon.ContextMenu = new ContextMenu(new MenuItem[]
-                { configMenuItem, exitMenuItem });
+                {/* configMenuItem,*/ exitMenuItem });
             notifyIcon.Visible = true;
             notifyIcon.Click += new EventHandler(OnClick);
         }
 
         private void OnClick(object sender, EventArgs e)
         {
-            Point p = new Point(Cursor.Position.X - 30, Cursor.Position.Y - 260);
-            sliderForm.Location = p;
-            sliderForm.Visible = true;
             sliderForm.Activate();
+            sliderForm.Visible = true;
         }
 
         private void Exit(object sender, EventArgs e)
