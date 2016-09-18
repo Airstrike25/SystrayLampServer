@@ -23,7 +23,7 @@ namespace systray_app
 
         public SliderForm()
         {
-            InitializeComponent();//
+            InitializeComponent();////
             this.ControlBox = false;
             this.Text = string.Empty;
             trackBar1.ValueChanged += new EventHandler(OnValueChanged);
