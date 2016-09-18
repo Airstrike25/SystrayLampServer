@@ -21,11 +21,35 @@ namespace systray_app
             InitializeComponent();
             this.ControlBox = false;
             this.Text = string.Empty;
+            
+            
+            trackBar1.Scroll += (s,
+                                    e) =>
+            {
+                if (!clicked)
+                    return;
+               // Console.WriteLine("Detection found (clicked):"+trackBar1.Value);
+            };
+            trackBar1.MouseDown += (s,
+                                    e) =>
+            {
+                clicked = true;
+            };
+            trackBar1.MouseUp += (s,
+                                    e) =>
+            {
+                if (!clicked)
+                    return;
+
+                clicked = false;
+                //Console.WriteLine("Detection found"+trackBar1.Value);
+            };
+
             trackBar1.ValueChanged += new EventHandler(OnValueChanged);
         }
-
+        public bool clicked = false;
         /// <summary>
-        /// Hier shit zetten die moeten gebeuren op het moment dat de trackbar veranderd.
+        /// Hier ... zetten die moeten gebeuren op het moment dat de trackbar veranderd.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -33,37 +57,33 @@ namespace systray_app
         
         private void OnValueChanged(object sender, EventArgs e)
         {
-            WebRequest request;
-            WebResponse response; 
-
-            //new NotImplementedException();\
-            
+          
             int i = trackBar1.Value;
-            Debug.WriteLine("Value: " + i);
-            switch (trackBar1.Value)
-            { 
-                case 1:// alles uit
-                     new Thread(() => HttpRequestThread(0, 0)).Start();
-                break;
+            //Debug.WriteLine("Value: " + i);
+            if (clicked)
+            {
+                Console.WriteLine("Detection found");
+                switch (trackBar1.Value)
+                {
+                    case 1:// alles uit
+                        new Thread(() => HttpRequestThread(0, 0)).Start();
+                        break;
 
-                case 2:
-                 new Thread(() => HttpRequestThread(0, 1)).Start();
-                break;
+                    case 2:
+                        new Thread(() => HttpRequestThread(0, 1)).Start();
+                        break;
 
-                case 3:
-                    new Thread(() => HttpRequestThread(1, 0)).Start();
-                break;
+                    case 3:
+                        new Thread(() => HttpRequestThread(1, 0)).Start();
+                        break;
 
-                case 4:
-                    new Thread(() => HttpRequestThread(1, 1)).Start();
-                break;
-                
-               
-            }
-            
-            
+                    case 4:
+                        new Thread(() => HttpRequestThread(1, 1)).Start();
+                        break;
 
-
+                }
+            }//end if clicked
+                        
         }
 
         public void HttpRequestThread(int sfeer, int hoofd)
@@ -71,7 +91,7 @@ namespace systray_app
             WebRequest request;
             WebResponse response;
             Debug.WriteLine("Starting response   sfeer: " + sfeer +"   hoofd : "+hoofd );
-            request = WebRequest.Create("http://192.168.0.110:8565/digitalWrite/33/"+ sfeer); // uit, sfeer
+            request = WebRequest.Create("http://192.168.0.102:3232/digitalWrite/56/"+ sfeer); // uit, sfeer
             try
             {
                 response = request.GetResponse();
@@ -81,7 +101,7 @@ namespace systray_app
             {
                 Debug.WriteLine("Exception caught ");
             }
-            request = WebRequest.Create("http://192.168.0.110:8565/digitalWrite/32/"+hoofd); // uit, hoofd
+            request = WebRequest.Create("http://192.168.0.102:3232/digitalWrite/55/"+hoofd); // uit, hoofd
             try
             {
                 response = request.GetResponse();
