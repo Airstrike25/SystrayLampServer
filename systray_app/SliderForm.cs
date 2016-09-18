@@ -19,12 +19,27 @@ namespace systray_app
     {
         
         public int valueT;
+        public bool timercheck;
+
         public SliderForm()
         {
             InitializeComponent();
             this.ControlBox = false;
             this.Text = string.Empty;
             trackBar1.ValueChanged += new EventHandler(OnValueChanged);
+            System.Timers.Timer Timera = new System.Timers.Timer();
+            Timera.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            Timera.Interval = 1000;
+            //Timera.Enabled = true;
+            if (timercheck)
+            {
+                Timera.Enabled = true;
+            }
+            else
+            {
+                Timera.Enabled = false;
+
+            }
             
 
             
@@ -54,7 +69,8 @@ namespace systray_app
                     new Thread(() => HttpRequestThread(1, 1)).Start();
                     break;
 
-            } 
+            }
+            timercheck = false;
            
             
         }
@@ -69,13 +85,12 @@ namespace systray_app
         private void OnValueChanged(object sender, EventArgs e)
         {
 
-
-            int i = trackBar1.Value;
-            Debug.WriteLine("Value: " + i);
-            System.Timers.Timer Timera = new System.Timers.Timer();
-            Timera.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            Timera.Interval = 1000;
-            Timera.Enabled = true;
+            if (!timercheck)
+            {
+                int i = trackBar1.Value;
+                Debug.WriteLine("Value: " + i);
+                timercheck = true;
+            }
 
            
             //Console.WriteLine("Detection found"); 
