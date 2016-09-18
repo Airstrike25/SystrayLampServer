@@ -78,7 +78,7 @@ namespace systray_app
             Timera.Enabled = true;
 
            
-            //Console.WriteLine("Detection found");
+            //Console.WriteLine("Detection found"); 
             //switch (trackBar1.Value)
             //{
             //    case 1:// alles uit
