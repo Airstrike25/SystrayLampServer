@@ -10,44 +10,55 @@ using System.Windows.Forms;
 using System.Net; // WebRequest
 using System.Diagnostics;
 using System.Threading;
+using System.Timers;
 
 
 namespace systray_app
 {
     public partial class SliderForm : Form
     {
+        
+        public int valueT;
         public SliderForm()
         {
             InitializeComponent();
             this.ControlBox = false;
             this.Text = string.Empty;
-            
-            
-            trackBar1.Scroll += (s,
-                                    e) =>
-            {
-                if (!clicked)
-                    return;
-               // Console.WriteLine("Detection found (clicked):"+trackBar1.Value);
-            };
-            trackBar1.MouseDown += (s,
-                                    e) =>
-            {
-                clicked = true;
-            };
-            trackBar1.MouseUp += (s,
-                                    e) =>
-            {
-                if (!clicked)
-                    return;
-
-                clicked = false;
-                //Console.WriteLine("Detection found"+trackBar1.Value);
-            };
-
             trackBar1.ValueChanged += new EventHandler(OnValueChanged);
+            
+
+            
         }
-        public bool clicked = false;
+
+        private void OnTimedEvent(object source, ElapsedEventArgs e)
+        {
+            
+            //Debug.WriteLine("Value: " + i);
+
+            Console.WriteLine("Detection found");
+            switch (valueT)
+            {
+                case 1:// alles uit
+                    new Thread(() => HttpRequestThread(0, 0)).Start();
+                    break;
+
+                case 2:
+                    new Thread(() => HttpRequestThread(0, 1)).Start();
+                    break;
+
+                case 3:
+                    new Thread(() => HttpRequestThread(1, 0)).Start();
+                    break;
+
+                case 4:
+                    new Thread(() => HttpRequestThread(1, 1)).Start();
+                    break;
+
+            } 
+           
+            
+        }
+        
         /// <summary>
         /// Hier ... zetten die moeten gebeuren op het moment dat de trackbar veranderd.
         /// </summary>
@@ -57,32 +68,37 @@ namespace systray_app
         
         private void OnValueChanged(object sender, EventArgs e)
         {
-          
+
+
             int i = trackBar1.Value;
-            //Debug.WriteLine("Value: " + i);
-            if (clicked)
-            {
-                Console.WriteLine("Detection found");
-                switch (trackBar1.Value)
-                {
-                    case 1:// alles uit
-                        new Thread(() => HttpRequestThread(0, 0)).Start();
-                        break;
+            Debug.WriteLine("Value: " + i);
+            System.Timers.Timer Timera = new System.Timers.Timer();
+            Timera.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            Timera.Interval = 1000;
+            Timera.Enabled = true;
 
-                    case 2:
-                        new Thread(() => HttpRequestThread(0, 1)).Start();
-                        break;
+           
+            //Console.WriteLine("Detection found");
+            //switch (trackBar1.Value)
+            //{
+            //    case 1:// alles uit
+            //        new Thread(() => HttpRequestThread(0, 0)).Start();
+            //        break;
 
-                    case 3:
-                        new Thread(() => HttpRequestThread(1, 0)).Start();
-                        break;
+            //    case 2:
+            //        new Thread(() => HttpRequestThread(0, 1)).Start();
+            //        break;
 
-                    case 4:
-                        new Thread(() => HttpRequestThread(1, 1)).Start();
-                        break;
+            //    case 3:
+            //        new Thread(() => HttpRequestThread(1, 0)).Start();
+            //        break;
 
-                }
-            }//end if clicked
+            //    case 4:
+            //        new Thread(() => HttpRequestThread(1, 1)).Start();
+            //        break;
+
+            //}
+        
                         
         }
 
