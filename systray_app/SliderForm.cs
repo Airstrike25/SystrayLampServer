@@ -91,7 +91,7 @@ namespace systray_app
             WebRequest request;
             WebResponse response;
             Debug.WriteLine("Starting response   sfeer: " + sfeer +"   hoofd : "+hoofd );
-            request = WebRequest.Create("http://192.168.0.102:3232/digitalWrite/56/"+ sfeer); // uit, sfeer
+            request = WebRequest.Create("http://192.168.1.113:3232/digitalWrite/56/"+ sfeer); // uit, sfeer
             try
             {
                 response = request.GetResponse();
@@ -101,7 +101,7 @@ namespace systray_app
             {
                 Debug.WriteLine("Exception caught ");
             }
-            request = WebRequest.Create("http://192.168.0.102:3232/digitalWrite/55/"+hoofd); // uit, hoofd
+            request = WebRequest.Create("http://192.168.1.113:3232/digitalWrite/55/"+hoofd); // uit, hoofd
             try
             {
                 response = request.GetResponse();
